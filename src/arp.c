@@ -58,7 +58,8 @@ void arp_print() {
  */
 void arp_req(uint8_t *target_ip) {
 //调用 buf_init() 函数对 txbuf 进行初始化。
-buf_init(&txbuf, sizeof(arp_pkt_t));
+// 初始化为0长度，然后通过 buf_add_header 分配 arp 头部空间，避免重复计数
+buf_init(&txbuf, 0);
 //调用 buf_add_header() 函数为 txbuf 添加 ARP 报头空间。
 buf_add_header(&txbuf, sizeof(arp_pkt_t));
 //将 arp_init_pkt 复制到 txbuf 中，作为 ARP 报文的初始内容。
@@ -79,7 +80,7 @@ ethernet_out(&txbuf, (uint8_t *)ether_broadcast_mac, NET_PROTOCOL_ARP);
  */
 void arp_resp(uint8_t *target_ip, uint8_t *target_mac) {
     //Step1. 初始化缓冲区：调用 buf_init() 函数初始化 txbuf。
-    buf_init(&txbuf, sizeof(arp_pkt_t));
+    buf_init(&txbuf, 0);
     //Step1.5. 添加 ARP 报头空间：调用 buf_add_header() 函数为 txbuf 添加 ARP 报头空间。
     buf_add_header(&txbuf, sizeof(arp_pkt_t));
     //Step1.75. 复制初始内容：将 arp_init_pkt 复制到 txbuf 中，作为 ARP 报文的初始内容。

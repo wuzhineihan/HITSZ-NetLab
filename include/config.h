@@ -13,8 +13,8 @@
 #else
 #define NET_IF_IP        \
     {                    \
-        192,168,37,11 \
-    }  // 自定义网卡ip地址
+        192, 168, 37, 123 \
+    }  // 自定义网卡ip地址（使用VMware VMnet1网段）
 #define NET_IF_MAC                         \
     {                                      \
         0x00, 0x11, 0x22, 0x33, 0x44, 0x55 \
